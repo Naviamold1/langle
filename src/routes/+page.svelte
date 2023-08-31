@@ -1,16 +1,12 @@
 <script lang="ts">
-	import type { PageData } from './$types';
-	import type { Language } from '../types/language';
-	import { addGuess, guessIndex, userGuessArray, correctLanguage } from './game';
-	import { Button } from '$lib/components/ui/button';
-	import { Input } from '$lib/components/ui/input';
-	import { languages } from './languages';
-	// @ts-ignore
-	import Svelecte from 'svelecte';
-	import { CheckCircle2, XCircle } from 'lucide-svelte';
+	import GuessSpots from '$lib/components/GuessSpots.svelte';
+	import { canGuess, correctLanguage, userGuessArray } from '../stores/gameStores';
 	import * as Alert from '$lib/components/ui/alert';
-
-	// export let data: PageData;
+	import { CheckCircle2, XCircle } from 'lucide-svelte';
+	import { addGuess } from '../stores/game';
+	import Button from '$lib/components/ui/button/button.svelte';
+	import Svelecte from 'svelecte';
+	import { languages } from '../languages';
 
 	let guess = '';
 
@@ -28,9 +24,9 @@
 		}
 	}
 
-	$: console.log(guess);
-
-	console.log($correctLanguage);
+	$: if (!$canGuess) {
+		inputDisable('both');
+	}
 </script>
 
 <div>
@@ -42,8 +38,7 @@
 					<Alert.Title><strong>{$correctLanguage.name}</strong> Correct!</Alert.Title>
 				</Alert.Root>
 			{/await}
-		{/if}
-		{#if $userGuessArray.length >= 5}
+		{:else if $userGuessArray.length >= 5}
 			{#await inputDisable('both') then}
 				<Alert.Root class="bg-red-600 flex justify-center content-center w-96">
 					<XCircle class="h-4 w-4" />
@@ -58,21 +53,14 @@
 		<div>
 			<audio controls controlslist="nodownload" src={$correctLanguage.recording} />
 		</div>
-		<div class="grid gap-2">
-			{#each { length: 5 } as _, i}
-				<div
-					class="col-span-7 transition-all duration-300 mb-0 h-8 w-96 bg-gray-200 border-slate-300 bg-opacity-50 dark:bg-opacity-50 border-dashed dark:bg-slate-700 dark:border-slate-700 border rounded flex justify-center items-center"
-				>
-					{#if $guessIndex >= i + 1}
-						<span class="opacity-70">{$userGuessArray[i]}</span>
-					{/if}
-				</div>
-			{/each}
-		</div>
+		<GuessSpots />
 		<div>
 			<form
 				class="flex w-full max-w-sm items-center space-x-2"
-				on:submit|preventDefault={() => addGuess(guess)}
+				on:submit|preventDefault={() => {
+					addGuess(guess);
+					guess = '';
+				}}
 			>
 				<Svelecte
 					options={languages}

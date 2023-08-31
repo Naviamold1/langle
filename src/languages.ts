@@ -1,4 +1,6 @@
-export const languages = [
+import type { Language } from './types/language';
+
+export const languages: Language[] = [
 	{
 		name: 'Acehnese',
 		recording: 'https://omniglot.com/soundfiles/udhr/udhr_acehnese.mp3'
