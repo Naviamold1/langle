@@ -4,6 +4,8 @@ import { canGuess, correctLanguage, guessIndex, lastSetDate, userGuessArray } fr
 
 function loadCurrentLanguage() {
 	if (browser) {
+		userGuessArray.set([]);
+		guessIndex.set(0);
 		const randomLanguage = languages[Math.floor(Math.random() * languages.length)];
 		lastSetDate.set(new Date().toISOString().split('T')[0]);
 		return correctLanguage.set(randomLanguage);
