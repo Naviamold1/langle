@@ -26,6 +26,7 @@
 		"@types/cookie": "^0.5.1",
 		"@typescript-eslint/eslint-plugin": "^6.5.0",
 		"@typescript-eslint/parser": "^6.5.0",
+		"@vite-pwa/assets-generator": "^0.0.9",
 		"@vite-pwa/sveltekit": "^0.2.5",
 		"autoprefixer": "^10.4.15",
 		"eslint": "^8.48.0",

@@ -9,6 +9,7 @@ export default defineConfig({
 			srcDir: './src',
 			scope: '/',
 			base: '/',
+			registerType: 'autoUpdate',
 			manifest: {
 				short_name: 'Langle',
 				name: 'Langle: Language Guessing Game',

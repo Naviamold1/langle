@@ -60,12 +60,12 @@ export const persistentWritable = <T>(storeKey: string, initialValue: T): Persis
 		storeValue = initialValue;
 		safeSetItem(storeKey, storeValue);
 	} else {
-		storeValue = safeParse(safeGetItem(storeKey));
+		storeValue = safeParse(currentStoreString);
 	}
 
-	let storeChannel = new BroadcastChannel(storeKey);
+	let storeChannel: BroadcastChannel | null = new BroadcastChannel(storeKey);
 	storeChannel.onmessage = (event) => {
-		storeValue = safeParse(safeGetItem(storeKey));
+		storeValue = safeParse(safeGetItem(storeKey) || '');
 		if (event.data === storeKey) {
 			subscriptions.forEach((subscriptions) => subscriptions(storeValue));
 		}

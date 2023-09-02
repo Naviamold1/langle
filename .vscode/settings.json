@@ -8,5 +8,6 @@
 		".vscode-insiders",
 		"src/languages.ts"
 	],
-	"cSpell.words": ["Worldle"]
+	"cSpell.words": ["Worldle"],
+	"typescript.tsdk": "node_modules\\typescript\\lib"
 }
