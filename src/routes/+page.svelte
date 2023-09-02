@@ -30,17 +30,17 @@
 </script>
 
 <div>
-	<div class="flex flex-col items-center justify-center gap-20 m-10">
+	<div class="m-10 flex flex-col items-center justify-center gap-20">
 		{#if $userGuessArray.slice(-1).toString() === $correctLanguage.name}
 			{#await inputDisable('both') then}
-				<Alert.Root class="bg-green-600 flex justify-center content-center w-96">
+				<Alert.Root class="flex w-96 content-center justify-center bg-green-600">
 					<CheckCircle2 class="h-4 w-4" />
 					<Alert.Title><strong>{$correctLanguage.name}</strong> Correct!</Alert.Title>
 				</Alert.Root>
 			{/await}
 		{:else if $userGuessArray.length >= 5}
 			{#await inputDisable('both') then}
-				<Alert.Root class="bg-red-600 flex justify-center content-center w-96">
+				<Alert.Root class="flex w-96 content-center justify-center bg-red-600">
 					<XCircle class="h-4 w-4" />
 					<Alert.Title
 						>Ran out of attempts! It was <strong>{$correctLanguage.name}</strong></Alert.Title
@@ -49,7 +49,7 @@
 			{/await}
 		{/if}
 	</div>
-	<div class="flex flex-col items-center justify-center gap-20 m-10">
+	<div class="m-10 flex flex-col items-center justify-center gap-20">
 		<div>
 			<audio controls controlslist="nodownload" src={$correctLanguage.recording} />
 		</div>
@@ -72,7 +72,7 @@
 					id="linput"
 					spellcheck="true"
 					placeholder="Guess the language..."
-					class="flex-auto svelecte-control w-80 !text-black ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+					class="svelecte-control w-80 flex-auto !text-black ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
 					bind:value={guess}
 					required
 				/>
